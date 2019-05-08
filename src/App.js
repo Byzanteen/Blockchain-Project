@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Read from "./Read";
+import Set from "./Set";
+
 
 
 class App extends Component {
@@ -28,12 +30,15 @@ class App extends Component {
     this.unsubscribe();
   }
   
-  
   render() {
     if (this.state.loading) return "Loading Drizzle...";
     return (
       <div className="App">
         <Read
+          drizzle={this.props.drizzle}
+          drizzleState={this.state.drizzleState}
+        />
+        <Set
           drizzle={this.props.drizzle}
           drizzleState={this.state.drizzleState}
         />
