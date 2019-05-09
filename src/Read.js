@@ -1,4 +1,5 @@
 import React from "react";
+import AccountNames from "./Constants"
 
 class Read extends React.Component {
   state = { dataKey: null };
@@ -27,9 +28,10 @@ class Read extends React.Component {
 
   getAccountNumber(account) {
     const { drizzleState } = this.props;
+
     for(var i = 0;i<this.accounts;i++){
       if(drizzleState.accounts[i] === account)
-        return "Account "+(i+1);
+        return AccountNames[i].name;
     }
     return "null";
   }
