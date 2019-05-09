@@ -2,6 +2,15 @@ import React from "react";
 
 class Read extends React.Component {
   state = { dataKey: null };
+  accounts = 0; 
+
+  getAccountLength() {
+    const { drizzleState } = this.props;
+    var k=0;
+    for(;drizzleState.accounts[k]!==undefined;k++);
+    this.accounts = k;
+    
+  }
 
   componentDidMount() {
     const { drizzle } = this.props;
@@ -12,39 +21,46 @@ class Read extends React.Component {
     for(var j = 0;j<100;j++){
       dataKey[j] = contract.methods["messages"].cacheCall(j);
     }
-debugger;
     // save the `dataKey` to local component state for later reference
     this.setState({ dataKey });
+  }
+
+  getAccountNumber(account) {
+    const { drizzleState } = this.props;
+    for(var i = 0;i<this.accounts;i++){
+      if(drizzleState.accounts[i] === account)
+        return "Account "+(i+1);
+    }
+    return "null";
   }
 
   render() {
     // get the contract state from drizzleState
     const { Chatgroup } = this.props.drizzleState.contracts;
+    this.getAccountLength();
 
     // using the saved `dataKey`, get the variable we're interested in
     let myData = [] ;
     let j = 0;
-    debugger;
-
+    
     if(this.state.dataKey !== null ){
     for(;j<100;j++){
-        if (Chatgroup.messages[this.state.dataKey[j]] !== undefined){
+        if (Chatgroup.messages[this.state.dataKey[j]] !== undefined &&
+          Chatgroup.messages[this.state.dataKey[j]].value !== undefined){
           if(Chatgroup.messages[this.state.dataKey[j]].value.text == "" && 
             Chatgroup.messages[this.state.dataKey[j]].value.sender == "0x0000000000000000000000000000000000000000")
             break;
-        myData[j] = Chatgroup.messages[this.state.dataKey[j]].value.sender+ " : " + 
+        myData[j] = this.getAccountNumber(Chatgroup.messages[this.state.dataKey[j]].value.sender)+ " : " + 
                     Chatgroup.messages[this.state.dataKey[j]].value.text;  
       }
     }
   }
     var output = myData.map(item => <p>{item}</p>);
     
-debugger;
-    // if it exists, then we display its value
     return (
       <div>{ output }</div>
-    )
-    // return <p>My stored string: {this.state.dataKey.length}</p>;
+    );
+
   }
 }
 
