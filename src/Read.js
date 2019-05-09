@@ -42,9 +42,13 @@ class Read extends React.Component {
     this.getAccountLength();
 
     const chatStyle = {
-      height: '70vh',
+      height: '80vh',
       overflow:'auto',
-      border:"solid black 3px"
+      border:"solid black 1px",
+      backgroundColor: "#546F6F",
+      color: "white",
+      fontWeight: "normal",
+      fontFamily: "Verdana"
     };
 
     // using the saved `dataKey`, get the variable we're interested in

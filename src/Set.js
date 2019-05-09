@@ -71,10 +71,16 @@ class Set extends React.Component {
             cursor: 'pointer'
         }
 
+        const chatStyle = {
+            display: "block",
+            backgroundColor: "#2F4F4F",
+            height: "200px"
+        };
+
     var options = AccountNames.map(item => <option value={item.index}>{item.name}</option>);
 
         return (
-            <div>
+            <div style = {chatStyle}>
                 <input type="text" name='message' onChange={event => this.handleChange(event)} onKeyDown={this.handleKeyDown} />
                 {/* <input type="number" name='account' min="1" max="10" onChange={event => this.handleChange(event)} onKeyDown={this.handleKeyDown} /> */}
                 <select name='account' value={this.state.account} onKeyDown={this.handleKeyDown}  onChange={event => this.handleChange(event)}>
