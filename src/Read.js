@@ -39,6 +39,12 @@ class Read extends React.Component {
     const { Chatgroup } = this.props.drizzleState.contracts;
     this.getAccountLength();
 
+    const chatStyle = {
+      height: '70vh',
+      overflow:'auto',
+      border:"solid black 3px"
+    };
+
     // using the saved `dataKey`, get the variable we're interested in
     let myData = [] ;
     let j = 0;
@@ -58,7 +64,7 @@ class Read extends React.Component {
     var output = myData.map(item => <p>{item}</p>);
     
     return (
-      <div>{ output }</div>
+      <div style={chatStyle}>{ output }</div>
     );
 
   }

@@ -9,23 +9,22 @@ class Set extends React.Component {
     targets = {message: null, account: null};
 
     handleChange (event) {
-        debugger;
        // this.setState({ [event.target.name]: event.target.value} );
        this.targets[event.target.name] = event.target;
-       this.state[event.target.name]=event.target.value;
+       this.setState({[event.target.name]:event.target.value});
     }
 
   handleKeyDown = e => {
-      debugger;
       if (e.keyCode === 13 || e.type === "click"){
-        this.setValue(this.state.message,this.state.account);
-    
+        debugger;
+      if(this.state.message != null && this.state.account != null){
+        this.setValue(this.state.message,+this.state.account-1);
         //cleanup
         this.targets.message.value = null;
         this.targets.account.value = null;
-
-        this.state.message = null;
-        this.state.account = null;
+        this.setState({message:null});
+        this.setState({account : null});
+      }
     }
 
 };
@@ -59,11 +58,23 @@ class Set extends React.Component {
 //   };
 
   render() {
+    const buttonStyles = {
+        backgroundColor: '#4CAF50',
+        border: 'none',
+        color: 'white',
+        //padding: 15px 32px,
+        textAlign: 'center',
+        textDecoration: 'none',
+        display: 'inline-block',
+        fontSize: '16px',
+        //margin: '4px 2px',
+        cursor:'pointer'
+    }
     return (
       <div>
         <input type="text" name='message' onChange={event => this.handleChange(event)} onKeyDown={this.handleKeyDown}/>
-        <input type="number" name='account' min="0" max="9" onChange={event => this.handleChange(event)}  onKeyDown={this.handleKeyDown}/>
-        <button onClick={e => this.handleKeyDown(e)}>Send</button>
+        <input type="number" name='account' min="1" max="10" onChange={event => this.handleChange(event)}  onKeyDown={this.handleKeyDown}/>
+        <button style={buttonStyles} onClick={e => this.handleKeyDown(e)}>Send</button>
       </div>
     );
   }
